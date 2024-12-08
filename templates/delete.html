@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Delete an Image</title>
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
+		/>
+	</head>
+	<body>
+		<div class="container">
+			<div class="box">
+				<h1 class="title has-text-centered">Delete an Image</h1>
+				<form action="/delete" method="POST">
+					<div class="field">
+						<label class="label">Image UID</label>
+						<div class="control">
+							<input
+								class="input"
+								type="text"
+								name="uid"
+								placeholder="Enter the UID of the image you want to delete"
+								id="uid"
+								required
+							/>
+						</div>
+					</div>
+					<div class="field">
+						<label class="label">Image Delete Key</label>
+						<div class="control">
+							<input
+								class="input"
+								type="text"
+								name="deletekey"
+								placeholder="Enter the delete key of the image you want to delete"
+								id="deletekey"
+								required
+							/>
+						</div>
+					</div>
+					<div class="field is-grouped is-grouped-centered">
+						<div class="control">
+							<button class="button is-danger">Delete</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</body>
+	<script>
+		document.getElementById("uid").focus();
+		// get query parameters
+		const urlParams = new URLSearchParams(window.location.search);
+		const uid = urlParams.get("uid");
+		const deletekey = urlParams.get("deletekey");
+		// set form values
+		document.getElementById("uid").value = uid;
+		document.getElementById("deletekey").value = deletekey;
+	</script>
+</html>
