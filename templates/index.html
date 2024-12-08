@@ -99,5 +99,34 @@
 				}
 			};
 		};
+		document.addEventListener("paste", (event) => {
+			const items = (event.clipboardData || window.clipboardData).items;
+
+			for (const item of items) {
+				if (item.type.startsWith("image/")) {
+					// Check if the item is an image
+					const blob = item.getAsFile(); // Get the file blob
+					const acceptedTypes = ["image/png", "image/jpeg"];
+
+					if (blob && acceptedTypes.includes(blob.type)) {
+						const dataTransfer = new DataTransfer(); // Create a DataTransfer object
+						dataTransfer.items.add(blob); // Add the blob to the DataTransfer
+
+						const fileUploadElement =
+							document.getElementById("fileupload");
+						if (
+							fileUploadElement &&
+							fileUploadElement.type === "file"
+						) {
+							fileUploadElement.files = dataTransfer.files; // Set the files property
+						}
+
+						// Optional: Trigger a change event if needed
+						const event = new Event("change", { bubbles: true });
+						fileUploadElement.dispatchEvent(event);
+					}
+				}
+			}
+		});
 	</script>
 </html>
