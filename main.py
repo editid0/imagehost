@@ -12,6 +12,7 @@ R2_S3_LINK = os.getenv("R2_S3_LINK")
 R2_ACCESS_KEY_ID = os.getenv("R2_ACCESS_KEY_ID")
 R2_SECRET_ACCESS_KEY = os.getenv("R2_SECRET_ACCESS_KEY")
 MAX_FILE_SIZE_MB = 3 * 1024 * 1024
+ANALYTICS = os.getenv("ANALYTICS")
 
 s3_client = boto3.client(
     "s3",
@@ -21,6 +22,11 @@ s3_client = boto3.client(
 )
 
 app = Flask(__name__)
+
+
+@app.context_processor
+def inject_analytics():
+    return {"analytics": ANALYTICS}
 
 
 @app.route("/")
